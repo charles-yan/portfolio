@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>成塔系统 - 产品作品集</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-elevated: #1e293b;
+      --bg-card: #334155;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.3);
+      --border: #475569;
+      --radius: 12px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Layout */
+    .container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 280px;
+      background: var(--bg-elevated);
+      border-right: 1px solid var(--border);
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      overflow-y: auto;
+      z-index: 100;
+      padding: 32px 24px;
+    }
+
+    .brand {
+      margin-bottom: 32px;
+    }
+
+    .brand h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent), #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 4px;
+    }
+
+    .brand p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .nav-section {
+      margin-bottom: 24px;
+    }
+
+    .nav-title {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+
+    .nav-list {
+      list-style: none;
+    }
+
+    .nav-item {
+      margin-bottom: 4px;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .nav-link:hover {
+      background: var(--bg-card);
+      color: var(--text-primary);
+    }
+
+    .nav-link.active {
+      background: var(--accent);
+      color: var(--bg);
+      font-weight: 600;
+    }
+
+    .nav-number {
+      font-size: 0.75rem;
+      opacity: 0.6;
+      min-width: 20px;
+    }
+
+    /* Main Content */
+    .main {
+      margin-left: 280px;
+      flex: 1;
+      padding: 40px 48px;
+      max-width: 1200px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 60px 0 48px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 48px;
+    }
+
+    .hero h2 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, var(--accent), #818cf8, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      margin-top: 32px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    /* Section */
+    .section {
+      margin-bottom: 64px;
+      scroll-margin-top: 40px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .section-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, var(--accent), #818cf8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .section-title-group h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .section-title-group p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .section-desc {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    /* Gallery */
+    .gallery {
+      display: grid;
+      gap: 20px;
+    }
+
+    .gallery-1 { grid-template-columns: 1fr; }
+    .gallery-2 { grid-template-columns: repeat(2, 1fr); }
+    .gallery-3 { grid-template-columns: repeat(3, 1fr); }
+    .gallery-4 { grid-template-columns: repeat(2, 1fr); }
+    .gallery-5 { grid-template-columns: repeat(2, 1fr); }
+
+    .gallery-item {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: zoom-in;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 0 1px var(--accent);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.02);
+    }
+
+    .gallery-caption {
+      padding: 12px 16px;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      border-top: 1px solid var(--border);
+    }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      cursor: zoom-out;
+    }
+
+    .lightbox.active {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      font-size: 2rem;
+      color: #fff;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .lightbox-close:hover {
+      opacity: 1;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+      .sidebar.open {
+        transform: translateX(0);
+      }
+      .main {
+        margin-left: 0;
+        padding: 24px;
+      }
+      .gallery-2, .gallery-3, .gallery-4, .gallery-5 {
+        grid-template-columns: 1fr;
+      }
+      .stats {
+        gap: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <h1>成塔系统</h1>
+        <p>产品功能展示</p>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-title">功能模块</div>
+        <ul class="nav-list">
+          <li class="nav-item"><a class="nav-link active" href="#sec-data"><span class="nav-number">01</span> 数据大屏</a></li>
+          <li class="nav-item"><a class="nav-link" href="#sec-order"><span class="nav-number">02</span> 订单/售后管理</a></li>
+          <li class="nav-item"><a class="nav-link" href="#sec-crmeb"><span class="nav-number">03</span> 商品统计分析</a></li>
+          <li class="nav-item"><a class="nav-link" href="#sec-im"><span class="nav-number">04</span> 即时通信</a></li>
+          <li class="nav-item"><a class="nav-link" href="#sec-ai"><span class="nav-number">05</span> AI 内容生成</a></li>
+          <li class="nav-item"><a class="nav-link" href="#sec-material"><span class="nav-number">06</span> 素材中心</a></li>
+          <li class="nav-item"><a class="nav-link" href="#sec-message"><span class="nav-number">07</span> 站内信</a></li>
+          <li class="nav-item"><a class="nav-link" href="#sec-component"><span class="nav-number">08</span> 内部组件库</a></li>
+          <li class="nav-item"><a class="nav-link" href="#sec-lowcode"><span class="nav-number">09</span> 低代码平台</a></li>
+          <li class="nav-item"><a class="nav-link" href="#sec-shop"><span class="nav-number">10</span> 谭飞商城小程序</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main">
+      <div class="hero">
+        <h2>成塔系统</h2>
+        <p>企业级数字化管理平台 · 覆盖数据可视化、订单管理、即时通讯、AI 生成、低代码开发等核心模块</p>
+        <div class="stats">
+          <div class="stat"><div class="stat-value">10</div><div class="stat-label">功能模块</div></div>
+          <div class="stat"><div class="stat-value">19</div><div class="stat-label">界面截图</div></div>
+          <div class="stat"><div class="stat-value">5</div><div class="stat-label">子系统</div></div>
+        </div>
+      </div>
+
+      <!-- 01 数据大屏 -->
+      <section class="section" id="sec-data">
+        <div class="section-header">
+          <div class="section-icon">📊</div>
+          <div class="section-title-group">
+            <h3>数据大屏</h3>
+            <p>企业数据可视化看板</p>
+          </div>
+        </div>
+        <div class="section-desc">
+          实时展示企业核心运营数据，支持多维度数据图表与自定义布局配置。
+        </div>
+        <div class="gallery gallery-2">
+          <div class="gallery-item" onclick="openLightbox('images/image1.png')">
+            <img src="images/image1.png" alt="数据大屏-1" />
+            <div class="gallery-caption">数据大屏主视图</div>
+          </div>
+          <div class="gallery-item" onclick="openLightbox('images/image2.png')">
+            <img src="images/image2.png" alt="数据大屏-2" />
+            <div class="gallery-caption">数据大屏详情</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02 订单/售后管理 -->
+      <section class="section" id="sec-order">
+        <div class="section-header">
+          <div class="section-icon">📦</div>
+          <div class="section-title-group">
+            <h3>订单 / 售后管理</h3>
+            <p>全链路订单处理与售后服务系统</p>
+          </div>
+        </div>
+        <div class="section-desc">
+          涵盖订单全生命周期管理，从下单、支付、发货到售后退款，提供一站式操作界面。
+        </div>
+        <div class="gallery gallery-3">
+          <div class="gallery-item" onclick="openLightbox('images/image3.png')">
+            <img src="images/image3.png" alt="订单管理-1" />
+            <div class="gallery-caption">订单列表</div>
+          </div>
+          <div class="gallery-item" onclick="openLightbox('images/image4.png')">
+            <img src="images/image4.png" alt="订单管理-2" />
+            <div class="gallery-caption">订单详情</div>
+          </div>
+          <div class="gallery-item" onclick="openLightbox('images/image5.png')">
+            <img src="images/image5.png" alt="售后管理" />
+            <div class="gallery-caption">售后处理</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 商品统计分析 -->
+      <section class="section" id="sec-crmeb">
+        <div class="section-header">
+          <div class="section-icon">📈</div>
+          <div class="section-title-group">
+            <h3>商品统计分析</h3>
+            <p>电商数据运营决策支持</p>
+          </div>
+        </div>
+        <div class="section-desc">
+          CRMEB 电商后台的商品统计模块，提供商品浏览量、访客数、支付转化等多维度数据看板，支持趋势分析与商品排行。
+        </div>
+        <div class="gallery gallery-1">
+          <div class="gallery-item" onclick="openLightbox('images/crmeb_stats.png')">
+            <img src="images/crmeb_stats.png" alt="商品统计" />
+            <div class="gallery-caption">商品统计看板</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 即时通信 -->
+      <section class="section" id="sec-im">
+        <div class="section-header">
+          <div class="section-icon">💬</div>
+          <div class="section-title-group">
+            <h3>即时通信</h3>
+            <p>嵌入式企业 IM 解决方案</p>
+          </div>
+        </div>
+        <div class="section-desc">
+          系统集成即时通讯能力，支持单聊、群聊、消息通知与在线客服场景。
+        </div>
+        <div class="gallery gallery-1">
+          <div class="gallery-item" onclick="openLightbox('images/image6.png')">
+            <img src="images/image6.png" alt="即时通信" />
+            <div class="gallery-caption">即时通讯界面</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 AI 内容生成 -->
+      <section class="section" id="sec-ai">
+        <div class="section-header">
+          <div class="section-icon">🤖</div>
+          <div class="section-title-group">
+            <h3>AI 内容生成</h3>
+            <p>智能内容创作辅助工具</p>
+          </div>
+        </div>
+        <div class="section-desc">
+          集成 AI 能力，支持文案生成、图片创作、智能推荐等自动化内容生产场景。
+        </div>
+        <div class="gallery gallery-2">
+          <div class="gallery-item" onclick="openLightbox('images/image7.png')">
+            <img src="images/image7.png" alt="AI生成-1" />
+            <div class="gallery-caption">AI 生成界面</div>
+          </div>
+          <div class="gallery-item" onclick="openLightbox('images/image8.png')">
+            <img src="images/image8.png" alt="AI生成-2" />
+            <div class="gallery-caption">生成结果展示</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 素材中心 -->
+      <section class="section" id="sec-material">
+        <div class="section-header">
+          <div class="section-icon">🎨</div>
+          <div class="section-title-group">
+            <h3>素材中心</h3>
+            <p>企业数字资产管理平台</p>
+          </div>
+        </div>
+        <div class="section-desc">
+          统一管理图片、视频、文档等数字资产，支持分类检索、权限控制与一键调用。
+        </div>
+        <div class="gallery gallery-1">
+          <div class="gallery-item" onclick="openLightbox('images/image9.png')">
+            <img src="images/image9.png" alt="素材中心" />
+            <div class="gallery-caption">素材库管理</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 06 站内信 -->
+      <section class="section" id="sec-message">
+        <div class="section-header">
+          <div class="section-icon">✉️</div>
+          <div class="section-title-group">
+            <h3>站内信</h3>
+            <p>系统消息与通知中心</p>
+          </div>
+        </div>
+        <div class="section-desc">
+          系统级消息推送与通知管理，支持公告、提醒、私信等多类型消息收发。
+        </div>
+        <div class="gallery gallery-1">
+          <div class="gallery-item" onclick="openLightbox('images/image10.png')">
+            <img src="images/image10.png" alt="站内信" />
+            <div class="gallery-caption">消息中心</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 07 内部组件库 -->
+      <section class="section" id="sec-component">
+        <div class="section-header">
+          <div class="section-icon">🧩</div>
+          <div class="section-title-group">
+            <h3>内部组件库</h3>
+            <p>可复用 UI 组件体系</p>
+          </div>
+        </div>
+        <div class="section-desc">
+          沉淀业务通用组件，提供标准化 UI 元素与交互模式，提升开发效率与视觉一致性。
+        </div>
+        <div class="gallery gallery-1">
+          <div class="gallery-item" onclick="openLightbox('images/image11.png')">
+            <img src="images/image11.png" alt="组件库" />
+            <div class="gallery-caption">组件库展示</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 08 低代码平台 -->
+      <section class="section" id="sec-lowcode">
+        <div class="section-header">
+          <div class="section-icon">🔧</div>
+          <div class="section-title-group">
+            <h3>低代码平台</h3>
+            <p>可视化应用构建工具</p>
+          </div>
+        </div>
+        <div class="section-desc">
+          通过拖拽组件与可视化配置快速构建业务应用，降低开发门槛，加速业务落地。
+        </div>
+        <div class="gallery gallery-2">
+          <div class="gallery-item" onclick="openLightbox('images/image12.png')">
+            <img src="images/image12.png" alt="低代码-1" />
+            <div class="gallery-caption">设计器界面</div>
+          </div>
+          <div class="gallery-item" onclick="openLightbox('images/image13.png')">
+            <img src="images/image13.png" alt="低代码-2" />
+            <div class="gallery-caption">组件配置</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 09 谭飞商城小程序 -->
+      <section class="section" id="sec-shop">
+        <div class="section-header">
+          <div class="section-icon">🛒</div>
+          <div class="section-title-group">
+            <h3>谭飞商城小程序</h3>
+            <p>移动端电商解决方案</p>
+          </div>
+        </div>
+        <div class="section-desc">
+          完整的微信小程序电商系统，覆盖商品展示、购物车、订单支付、个人中心等核心流程。
+        </div>
+        <div class="gallery gallery-4">
+          <div class="gallery-item" onclick="openLightbox('images/image14.png')">
+            <img src="images/image14.png" alt="小程序-1" />
+            <div class="gallery-caption">首页</div>
+          </div>
+          <div class="gallery-item" onclick="openLightbox('images/image15.png')">
+            <img src="images/image15.png" alt="小程序-2" />
+            <div class="gallery-caption">商品详情</div>
+          </div>
+          <div class="gallery-item" onclick="openLightbox('images/image16.png')">
+            <img src="images/image16.png" alt="小程序-3" />
+            <div class="gallery-caption">购物车</div>
+          </div>
+          <div class="gallery-item" onclick="openLightbox('images/image17.png')">
+            <img src="images/image17.png" alt="小程序-4" />
+            <div class="gallery-caption">订单确认</div>
+          </div>
+          <div class="gallery-item" onclick="openLightbox('images/image18.png')">
+            <img src="images/image18.png" alt="小程序-5" />
+            <div class="gallery-caption">个人中心</div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <span class="lightbox-close">&times;</span>
+    <img id="lightbox-img" src="" alt="放大预览" />
+  </div>
+
+  <script>
+    // Lightbox
+    function openLightbox(src) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Active nav on scroll
+    const sections = document.querySelectorAll('.section');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (scrollY >= sectionTop - 100) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
