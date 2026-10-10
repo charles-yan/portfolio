@@ -258,6 +258,17 @@
       transform: scale(1.02);
     }
 
+    /* 超宽图片固定高度，避免塌陷；contain 保持比例，深色底补空 */
+    .gallery-item.fixed-height {
+      background: #0d1117;
+    }
+
+    .gallery-item.fixed-height img {
+      height: 480px;
+      object-fit: contain;
+      background: #0d1117;
+    }
+
     .gallery-caption {
       padding: 12px 16px;
       font-size: 0.85rem;
@@ -474,7 +485,7 @@
             <img src="images/adp_01_chat.png" alt="客服助手-对话演示" />
             <div class="gallery-caption">对话演示：客户回复 + 内部处理建议双视角输出</div>
           </div>
-          <div class="gallery-item" onclick="openLightbox('images/adp_02_workflow.png')">
+          <div class="gallery-item fixed-height" onclick="openLightbox('images/adp_02_workflow.png')">
             <img src="images/adp_02_workflow.png" alt="客服助手-工作流编排" />
             <div class="gallery-caption">工作流编排：信息收集 → 意图路由 → 分支处理 → 汇总回复</div>
           </div>
